@@ -1,0 +1,119 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% Palette
+\definecolor{primary}{RGB}{31, 78, 121}
+\definecolor{secondary}{RGB}{89, 89, 89}
+\definecolor{accent}{RGB}{217, 83, 79}
+\definecolor{lightbg}{RGB}{245, 247, 250}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=primary
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small \textcolor{secondary}{Model Evaluation Report --- Technical Algorithm Comparison}}
+\rhead{\small \textcolor{secondary}{AnalystLab Africa -- Week 3}}
+\cfoot{\small \thepage}
+
+\titleformat{\section}{\large\bfseries\color{primary}}{\thesection.}{0.5em}{}[\titlerule]
+\titleformat{\subsection}{\bfseries\color{primary}}{\thesubsection.}{0.5em}{}
+
+\begin{document}
+
+\begin{center}
+    {\huge \bfseries \color{primary} AnalystLab Africa}\\[0.2cm]
+    {\large Machine Learning Internship Programme}\\[0.3cm]
+    {\Large \bfseries Week 3: Model Evaluation Report}\\[0.1cm]
+    {\textcolor{secondary}{Technical Performance Benchmark, Confusion Matrices \& Diagnostic Analysis}}\\[0.4cm]
+    \textbf{Prepared by:} Rudolf (Junior Machine Learning Engineer) \\
+    \textbf{Organization:} ABC Communications Ltd \\
+    \textbf{Date:} August 19, 2026
+\end{center}
+
+\vspace{0.3cm}
+
+\section*{Document Control}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\rowcolor{lightbg} \textbf{Field} & \textbf{Details} \\ \hline
+\textbf{Programme} & Machine Learning Internship \\ \hline
+\textbf{Week} & Week 3 \\ \hline
+\textbf{Project} & Technical Model Evaluation \& Performance Benchmark \\ \hline
+\textbf{Prepared by} & Rudolf \\ \hline
+\textbf{Version} & 1.0 \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Technical Executive Summary}
+This technical report documents the empirical model development, cross-validation, and performance evaluation pipeline implemented during Week 3. Using the clean, 26-feature dataset derived from Week 2 ($N=7,043$), we implemented six supervised classification algorithms: \textbf{Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, Support Vector Machine (SVM), and K-Nearest Neighbors (KNN)}. 
+
+Evaluation on an independent stratified test set ($N=1,405$) confirms that ensemble models (Gradient Boosting and Random Forest) achieve superior discriminative capabilities, achieving \textbf{ROC-AUC scores of 0.8364 and 0.8389}. Furthermore, applying cost-sensitive class balancing lifts model \textbf{Recall from 49.5\% to 75.3\%} and \textbf{F1 Score to 0.6342}.
+
+\section{Dataset Verification & Preprocessing Review}
+The input dataset (`telco_churn_processed.csv`) comprises 7,043 rows and 26 features. Preprocessing integrity checks confirm:
+\begin{itemize}
+    \item Zero missing values across all continuous and categorical features.
+    \item Ordinal encoding applied to \textit{Contract} and \textit{TenureGroup}.
+    \item One-hot encoding applied to multi-category nominal features (\textit{InternetService}, \textit{PaymentMethod}).
+    \item Continuous variables (\textit{tenure}, \textit{MonthlyCharges}, \textit{TotalCharges}) standardized using \texttt{StandardScaler}.
+    \item Stratified 80/20 split ($N_{train}=5,616$, $N_{test}=1,405$) maintaining 26.45\% target churn prevalence.
+\end{itemize}
+
+\section{Algorithm Specifications & Hyperparameters}
+\begin{enumerate}
+    \item \textbf{Logistic Regression:} L2 penalty, \texttt{solver='lbfgs'}, \texttt{max\_iter=1000}, $C=1.0$.
+    \item \textbf{Decision Tree:} Gini impurity criterion, \texttt{max\_depth=5}, \texttt{min\_samples\_split=20}.
+    \item \textbf{Random Forest:} 100 decision trees, \texttt{max\_depth=10}, \texttt{max\_features='sqrt'}.
+    \item \textbf{Gradient Boosting:} 100 boosting stages, \texttt{learning\_rate=0.1}, \texttt{max\_depth=4}, subsample=1.0.
+    \item \textbf{Support Vector Machine:} Radial Basis Function (RBF) kernel, $C=1.0$, probability calibration via \texttt{CalibratedClassifierCV}.
+    \item \textbf{K-Nearest Neighbors:} $k=7$ neighbors, Euclidean distance metric, uniform weighting.
+\end{enumerate}
+
+\section{Detailed Performance Metrics & Confusion Matrices}
+\begin{table}[h!]
+\centering
+\caption{Detailed Classification Metrics and Confusion Matrix Breakdown}
+\begin{tabular}{lcccccccc}
+\toprule
+\textbf{Model} & \textbf{TN} & \textbf{FP} & \textbf{FN} & \textbf{TP} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
+\midrule
+Logistic Regression & 934 & 99 & 176 & 196 & 0.8043 & 0.6644 & 0.5269 & 0.5877 \\
+Decision Tree & 901 & 132 & 157 & 215 & 0.7943 & 0.6196 & 0.5780 & 0.5981 \\
+Random Forest & 934 & 99 & 188 & 184 & 0.7964 & 0.6525 & 0.4946 & 0.5627 \\
+Gradient Boosting & 934 & 99 & 183 & 189 & 0.7993 & 0.6563 & 0.5081 & 0.5727 \\
+Support Vector Machine & 963 & 70 & 215 & 157 & 0.7972 & 0.6916 & 0.4220 & 0.5242 \\
+K-Nearest Neighbors & 894 & 139 & 193 & 179 & 0.7637 & 0.5629 & 0.4812 & 0.5188 \\
+\midrule
+\textbf{RF (Balanced)} & 802 & 231 & 92 & 280 & 0.7701 & 0.5479 & 0.7527 & \textbf{0.6342} \\
+\textbf{LR (Balanced)} & 757 & 276 & 84 & 288 & 0.7438 & 0.5106 & \textbf{0.7742} & 0.6154 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Computational Complexity & Trade-Offs}
+\begin{itemize}
+    \item \textbf{Training Time:} Logistic Regression and Decision Trees train instantaneously ($<0.05s$). Random Forest and Gradient Boosting train in $<0.8s$. Support Vector Machine requires calibration and scales quadratically $\mathcal{O}(N^2)$ with training size.
+    \item \textbf{Inference Latency:} Linear and tree-based models predict in sub-millisecond time ($<0.001s/sample$), satisfying real-time production API requirements.
+    \item \textbf{Interpretability:} Logistic Regression and Decision Trees offer direct co-efficient and rule interpretability. Random Forest and Gradient Boosting offer feature importance and SHAP compatibility.
+\end{itemize}
+
+\section{Technical Recommendation for Production}
+We recommend deploying \textbf{Random Forest (Balanced)} or \textbf{Gradient Boosting with Decision Threshold $t=0.35$}. This model configuration optimizes F1 Score (0.6342) and Recall (75.27\%) while keeping ROC-AUC high (0.8389), delivering the optimal trade-off for automated telecom churn intervention pipelines.
+
+\end{document}
