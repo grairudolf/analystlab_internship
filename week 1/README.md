@@ -7,13 +7,13 @@
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 This folder contains the Week 1 deliverable for the AnalystLab Africa Machine Learning Internship Programme. The objective of Week 1 is to establish the business context, frame the customer churn problem as a binary classification task, and perform comprehensive Exploratory Data Analysis (EDA) on the Telco Customer Churn dataset.
 
 ---
 
-## 📂 Folder Structure
+## Folder Structure
 
 ```
 week 1/
@@ -24,7 +24,7 @@ week 1/
 
 ---
 
-## 📊 Key Findings from Exploratory Data Analysis
+## Key Findings from Exploratory Data Analysis
 
 1. **Overall Target Class Distribution:**
    - **Retained Customers (No):** 5,174 (73.46%)
@@ -46,7 +46,7 @@ week 1/
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 ```bash
 pip install pandas numpy matplotlib seaborn jupyter

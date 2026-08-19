@@ -6,33 +6,34 @@
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 This repository contains the complete end-to-end deliverables for the **AnalystLab Africa Machine Learning Internship Programme**. The project addresses customer churn for **ABC Communications Ltd**, transforming raw subscriber data into actionable retention strategies through rigorous Exploratory Data Analysis (EDA), Data Preprocessing & Feature Engineering, and Supervised Machine Learning Model Development & Performance Evaluation.
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
 ```
 .
 ├── WA_Fn-UseC_-Telco-Customer-Churn.csv                         # Original Raw Dataset
+├── README.md
 ├── week 1/                                                      # Week 1 EDA & Business Understanding
 │   ├── README.md
 │   ├── week1_churn_analysis.ipynb
 │   └── WA_Fn-UseC_-Telco-Customer-Churn.csv
-├── week 2/
+├── week 2/                                                      # Week 2 Preprocessing & Feature Engineering
 │   ├── README.md
-│   ├── week2_data_preprocessing.ipynb                           # Week 2: Preprocessing & Feature Engineering
-│   ├── telco_churn_processed.csv                                # Machine-Learning-Ready Dataset
+│   ├── week2_data_preprocessing.ipynb
+│   ├── telco_churn_processed.csv
 │   ├── business_understanding_report.pdf
 │   └── data_preprocessing_report.pdf
-└── week 3/
+└── week 3/                                                      # Week 3 Model Development & Evaluation
     ├── README.md
-    ├── week3_model_development_evaluation.ipynb                 # Week 3: Model Development & Evaluation
-    ├── telco_churn_processed.csv                                # Model Input Dataset
-    ├── week3_telco_churn_predictions.csv                        # Output Predictions & Probabilities
-    ├── model_performance_summary.csv                            # Model Evaluation Metrics Summary
+    ├── week3_model_development_evaluation.ipynb
+    ├── telco_churn_processed.csv
+    ├── week3_telco_churn_predictions.csv
+    ├── model_performance_summary.csv
     ├── figures/                                                 # 11 Performance & Diagnostic Figures
     │   ├── fig01_confusion_matrices.png
     │   ├── fig02_roc_curves.png
@@ -54,12 +55,12 @@ This repository contains the complete end-to-end deliverables for the **AnalystL
 
 ---
 
-## 📊 Summary of Weekly Deliverables
+## Summary of Weekly Deliverables
 
 ### Week 1: Business Understanding & Exploratory Data Analysis
 - **Focus:** Problem framing, target variable inspection, demographic and service EDA.
 - **Key Findings:** Overall churn rate is **26.54%** (1,869 / 7,043). Month-to-month contracts, fiber optic internet, electronic check payments, and short tenure exhibit the highest churn prevalence.
-- **Deliverable:** `week1_churn_analysis.ipynb`.
+- **Deliverable:** `week 1/week1_churn_analysis.ipynb`.
 
 ### Week 2: Data Preprocessing & Feature Engineering
 - **Focus:** Data type correction, missing value imputation, categorical encoding, scaling, and feature creation.
@@ -79,7 +80,7 @@ This repository contains the complete end-to-end deliverables for the **AnalystL
 
 ---
 
-## 🏆 Model Performance Benchmark Summary
+## Model Performance Benchmark Summary
 
 Evaluated on an independent 20% Stratified Test Set ($N=1,405$):
 
@@ -91,12 +92,12 @@ Evaluated on an independent 20% Stratified Test Set ($N=1,405$):
 | **Gradient Boosting** | 79.93% | 65.63% | 50.81% | 0.5727 | 0.8364 | Standard boosting |
 | **Support Vector Machine** | 79.72% | 69.16% | 42.20% | 0.5242 | 0.7836 | Margin optimization |
 | **K-Nearest Neighbors** | 76.37% | 56.29% | 48.12% | 0.5188 | 0.7993 | Instance similarity |
-| 🌟 **Random Forest (Balanced)** | **77.01%** | **54.79%** | **75.27%** | **0.6342** | **0.8389** | **Recommended Production Deployment** |
-| 🌟 **Logistic Regression (Balanced)** | **74.38%** | **51.06%** | **77.42%** | **0.6154** | **0.8393** | High-Recall linear option |
+| **Random Forest (Balanced)** | **77.01%** | **54.79%** | **75.27%** | **0.6342** | **0.8389** | **Recommended Production Deployment** |
+| **Logistic Regression (Balanced)** | **74.38%** | **51.06%** | **77.42%** | **0.6154** | **0.8393** | High-Recall linear option |
 
 ---
 
-## 🎯 Key Business Insights & Deployment Recommendations
+## Key Business Insights & Deployment Recommendations
 
 1. **Why Recall Over Accuracy?**
    - **Cost of False Negative (FN):** ~$600 (lost customer lifetime value).
@@ -113,7 +114,7 @@ Evaluated on an independent 20% Stratified Test Set ($N=1,405$):
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 ```bash
 # Clone repository
@@ -123,19 +124,13 @@ cd week_one
 # Install required packages
 pip install pandas numpy matplotlib seaborn scikit-learn lightgbm reportlab pypdf jupyter
 
-# Run Week 3 asset generator script
-python generate_week3_assets.py
-
-# Build LaTeX and PDF reports
-python build_latex_and_pdf_reports.py
-
 # Launch Jupyter Notebook
 jupyter notebook week\ 3/week3_model_development_evaluation.ipynb
 ```
 
 ---
 
-## 📄 Deliverables Checklist
+## Deliverables Checklist
 
 - [x] Executed Jupyter Notebook (`week3_model_development_evaluation.ipynb`)
 - [x] Processed Dataset & Predictions CSV (`week3_telco_churn_predictions.csv`)
