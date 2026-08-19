@@ -46,10 +46,8 @@ This repository contains the complete end-to-end deliverables for the **AnalystL
     │   ├── fig09_learning_curves.png
     │   ├── fig10_threshold_optimization.png
     │   └── fig11_recall_precision_tradeoff.png
-    └── reports/                                                 # LaTeX Source Files & PDF Deliverables
-        ├── week3_business_report.tex
+    └── reports/                                                 # Final PDF Deliverable Reports
         ├── week3_business_report.pdf
-        ├── week3_model_evaluation_report.tex
         └── week3_model_evaluation_report.pdf
 ```
 
@@ -135,6 +133,11 @@ jupyter notebook week\ 3/week3_model_development_evaluation.ipynb
 - [x] Executed Jupyter Notebook (`week3_model_development_evaluation.ipynb`)
 - [x] Processed Dataset & Predictions CSV (`week3_telco_churn_predictions.csv`)
 - [x] 11 High-Resolution Diagnostic Figures (`figures/`)
-- [x] Professional LaTeX Source Files (`week3_business_report.tex`, `week3_model_evaluation_report.tex`)
 - [x] PDF Reports (`week3_business_report.pdf`, `week3_model_evaluation_report.pdf`)
 - [x] Updated Project Documentation (`README.md`)
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
