@@ -16,9 +16,11 @@ This repository contains the complete end-to-end deliverables for the **AnalystL
 
 ```
 .
-├── AnalystLab_Africa_Week3_Machine_Learning_Assignment(1).pdf  # Official Assignment Document
 ├── WA_Fn-UseC_-Telco-Customer-Churn.csv                         # Original Raw Dataset
-├── week1_churn_analysis.ipynb                                   # Week 1: Business Understanding & EDA
+├── week 1/                                                      # Week 1 EDA & Business Understanding
+│   ├── README.md
+│   ├── week1_churn_analysis.ipynb
+│   └── WA_Fn-UseC_-Telco-Customer-Churn.csv
 ├── week 2/
 │   ├── README.md
 │   ├── week2_data_preprocessing.ipynb                           # Week 2: Preprocessing & Feature Engineering
