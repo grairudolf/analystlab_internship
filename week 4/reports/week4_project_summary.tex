@@ -1,0 +1,80 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+
+\definecolor{primary}{RGB}{31, 78, 121}
+\definecolor{secondary}{RGB}{41, 128, 185}
+\definecolor{darktext}{RGB}{44, 62, 80}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textcolor{secondary}{\small HealthConnect Week 4 Project Summary}}
+\lhead{\textcolor{secondary}{\small AnalystLab Africa}}
+\rfoot{\textcolor{secondary}{\small Page \thepage}}
+\lfoot{\textcolor{secondary}{\small Intern: Rudolf (ML Track)}}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries\color{primary} ANALYSTLAB AFRICA EXPERIENCE LAB}\\[0.2cm]
+{\large\bfseries\color{secondary} Official Week 4 Project Summary — Machine Learning Track}\\[0.4cm]
+\rule{\linewidth}{1pt}
+\end{center}
+
+\vspace{0.2cm}
+
+\begin{description}[font=\normalfont\bfseries\color{primary}]
+    \item[Intern Name:] Rudolf
+    \item[Track:] Machine Learning / Data Science / ML Engineering
+    \item[Project Title:] HealthConnect Clinic Appointment Attendance Optimization
+    \item[Date:] August 2026
+\end{description}
+
+\vspace{0.3cm}
+\hrule
+\vspace{0.5cm}
+
+\section*{1. Specific Problem Addressed}
+HealthConnect Clinic experiences significant operational disruptions and unrecoverable idle capacity caused by patient appointment no-shows ($48.46\%$ baseline non-attendance rate across 5,000 appointment records). The Machine Learning track addresses this problem by developing an automated prediction and decision engine to identify high-risk non-attendance prior to scheduled appointment times, enabling proactive multi-channel interventions and schedule optimization.
+
+\section*{2. Resources Utilized}
+\begin{enumerate}
+    \item \textbf{\texttt{HealthConnect\_Appointment\_Data.csv}:} $5,000$ appointment records across $1,696$ unique patients, containing demographic, scheduling, historical attendance, and reminder metrics.
+    \item \textbf{\texttt{HealthConnect\_Data\_Dictionary.xlsx}:} Complete field definition dictionary specifying data types, role constraints, and descriptions.
+    \item \textbf{\texttt{HealthConnect\_Clinic\_Knowledge\_Base.docx}:} Clinic operational rules, cancellation policies, and administrative procedures.
+\end{enumerate}
+
+\section*{3. Key Observations from Week 4}
+\begin{itemize}
+    \item \textbf{Target Distribution:} No-Show ($48.46\%$, $N=2,423$), Attended ($46.28\%$, $N=2,314$), Cancelled ($5.26\%$, $N=263$).
+    \item \textbf{Booking Lead Time Effect:} Appointments booked $\ge 30$ days in advance exhibit over $65\%$ no-show rates, compared to $<25\%$ for appointments booked within 3 days.
+    \item \textbf{Historical Recidivism:} Patients with $\ge 2$ previous no-shows exhibit a $>75\%$ probability of missing subsequent appointments.
+    \item \textbf{Data Quality:} \texttt{reminder\_channel} missingness ($27.32\%$) is NMAR (corresponds to no reminder sent); \texttt{waiting\_time\_minutes} presents a critical target leakage risk and must be excluded.
+\end{itemize}
+
+\section*{4. Proposed Technical \& System Approach}
+We propose a supervised binary classification model $P(\text{No-Show} \mid X)$ integrated into a 5-stage production architecture: Data Ingestion $\rightarrow$ Validation \& Feature Store $\rightarrow$ Inference Microservice $\rightarrow$ Actionable Decision Engine $\rightarrow$ MLOps Logging. Patients are stratified into High, Moderate, and Low risk tiers to trigger automated WhatsApp/SMS confirmation workflows.
+
+\section*{5. Key Considerations, Risks \& Constraints}
+\begin{itemize}
+    \item \textbf{Data Leakage Boundary:} Explicit exclusion of post-arrival variables (\texttt{waiting\_time\_minutes}).
+    \item \textbf{Patient Clustering:} GroupKFold cross-validation grouped by \texttt{patient\_id} to prevent temporal behavior leakage across multiple patient appointments.
+    \item \textbf{Ethical Compliance:} Ensuring equitable prediction accuracy across age and gender subgroups without service discrimination.
+\end{itemize}
+
+\section*{6. Proposed Focus for Week 5}
+In Week 5, work will progress to \textbf{Data Preprocessing, Feature Engineering \& Baseline Model Prototyping}:
+\begin{enumerate}
+    \item Constructing automated scikit-learn preprocessing and imputation pipelines.
+    \item Engineering behavioral features (\texttt{historical\_noshow\_ratio}, lead time interactions).
+    \item Benchmarking baseline classification models (Logistic Regression, Decision Trees, Random Forest, XGBoost, LightGBM).
+    \item Tuning classification decision thresholds for high recall performance.
+\end{enumerate}
+
+\end{document}
