@@ -1,0 +1,121 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+
+\definecolor{primary}{RGB}{31, 78, 121}
+\definecolor{secondary}{RGB}{41, 128, 185}
+\definecolor{darktext}{RGB}{44, 62, 80}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textcolor{secondary}{\small HealthConnect Week 5 Project Summary}}
+\lhead{\textcolor{secondary}{\small AnalystLab Africa}}
+\rfoot{\textcolor{secondary}{\small Page \thepage}}
+\lfoot{\textcolor{secondary}{\small Intern: Grai Rudolf (ML Track)}}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries\color{primary} ANALYSTLAB AFRICA EXPERIENCE LAB}\\[0.2cm]
+{\large\bfseries\color{secondary} Official Week 5 Project Summary — Machine Learning Engineering Track}\\[0.4cm]
+\rule{\linewidth}{1pt}
+\end{center}
+
+\vspace{0.2cm}
+
+\begin{description}[font=\normalfont\bfseries\color{primary}]
+    \item[Intern Name:] Grai Rudolf
+    \item[Track:] Machine Learning Engineering / Data Science
+    \item[Project Title:] HealthConnect Clinic Appointment Attendance Optimization
+    \item[Date:] September 2026
+\end{description}
+
+\vspace{0.3cm}
+\hrule
+\vspace{0.5cm}
+
+\section*{1. What I Planned to Accomplish in Week 5}
+Building on the Week 4 problem definition and production system design, I planned to move from
+planning into implementation by: constructing modular, reusable data-processing and preprocessing
+pipelines; engineering behavioural features; training and benchmarking baseline classifiers on
+recall-focused metrics; evaluating initial results; and testing the individual pipeline components.
+
+\section*{2. What I Actually Completed}
+\begin{enumerate}
+    \item A modular \textbf{ML pipeline package} (\texttt{pipeline/}) with single-responsibility
+          modules for configuration, data processing, feature engineering, model training and
+          evaluation.
+    \item A \textbf{data-processing workflow} with explicit leakage control (dropping
+          \texttt{waiting\_time\_minutes}), NMAR/MCAR imputation, and a reusable sklearn
+          \texttt{ColumnTransformer}.
+    \item \textbf{Feature engineering} adding four behavioural features.
+    \item An \textbf{initial model workflow} training and benchmarking \textbf{five} baselines on
+          5-fold stratified cross-validation.
+    \item An \textbf{evaluation framework} with metrics (accuracy, precision, recall, F1, ROC-AUC)
+          and diagnostic visualisations.
+    \item \textbf{Component testing} — all 6 smoke tests pass.
+    \item Documents: \texttt{README.md}, \texttt{requirements.txt}, this report and a project
+          summary (LaTeX/PDF), plus a fully executed Jupyter notebook.
+\end{enumerate}
+
+\section*{3. Key Findings / Development Outcomes}
+\begin{itemize}
+    \item The primary baseline (Logistic Regression) achieves held-out \textbf{recall $0.650$},
+          \textbf{accuracy $0.617$}, and \textbf{ROC-AUC $0.664$}, comfortably above the random
+          baseline and confirming pre-appointment signal.
+    \item \texttt{booking\_lead\_days} dominates feature importance, followed by
+          \texttt{distance\_to\_clinic\_km}, \texttt{age}, and appointment history — consistent with
+          Week 4 findings.
+    \item All five baselines are broadly comparable in recall ($0.56$–$0.63$), indicating a
+          reliable starting point for tuning rather than a final model.
+\end{itemize}
+
+\section*{4. Major Challenges Encountered}
+\begin{itemize}
+    \item Designing preprocessing and imputation to preserve the meaning of NMAR missingness.
+    \item Managing the dataset reduction (5,000 $\to$ 4,737 rows) after dropping cancellations.
+    \item Handling the \texttt{booking\_lead\_days $= 0$} binning edge case to avoid NaN labels.
+    \item Acknowledging that a stratified split does not fully control repeat-patient leakage
+          (needs \texttt{GroupKFold}).
+\end{itemize}
+
+\section*{5. Important Decisions Made and Why}
+\begin{itemize}
+    \item \textbf{Selected logistic regression as the primary reporting baseline} for
+          interpretability at this initial stage.
+    \item \textbf{Used stratified split for the baseline} to establish performance quickly, with
+          \texttt{GroupKFold} explicitly deferred to Week 6.
+    \item \textbf{Used balanced class weighting} to favour no-show recall over precision, matching
+          the business objective of catching high-risk patients.
+\end{itemize}
+
+\section*{6. Changes to My Week 4 Approach}
+The Week 4 architecture and problem definition were followed unchanged. The main refinement was
+choosing an interpretable linear baseline for the initial implementation while retaining tree-based
+models for later feature-importance and hyperparameter work.
+
+\section*{7. Cross-Track Collaboration}
+Liaised with the Data Science / Data Analytics tracks to confirm the target definition (Attended vs
+No-Show), the exclusion of cancellations, and the leakage boundaries. This ensured the engineered
+features and pipeline align with the analytics outputs produced across the project team.
+
+\section*{8. Remaining Work}
+Notes: apply \texttt{GroupKFold} and a temporal split; tune hyperparameters and threshold for the
+$F_2$ objective; containerise the inference service; add MLflow tracking and drift monitoring.
+
+\section*{9. Proposed Focus for Week 6}
+\begin{enumerate}
+    \item Rigorous leakage-controlled validation (\texttt{GroupKFold} by \texttt{patient\_id}).
+    \item Hyperparameter and threshold tuning for recall-driven objectives.
+    \item Wrapping the best model in the containerised FastAPI inference service from the Week 4
+          architecture.
+    \item Introducing MLflow experiment tracking and Evidently AI drift monitoring.
+\end{enumerate}
+
+\end{document}
