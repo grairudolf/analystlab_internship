@@ -38,19 +38,41 @@ This repository contains my weekly projects, notebooks, code, and reports for th
 │   ├── model_performance_summary.csv
 │   ├── figures/                                                 # Diagnostic & Performance Plots
 │   └── reports/                                                 # Final PDF Reports
-└── week 4/                                                      # Week 4: HealthConnect Experience Lab Kickoff
+├── week 4/                                                      # Week 4: HealthConnect Experience Lab Kickoff
+│   ├── README.md
+│   ├── week4_healthconnect_ml_definition_system_design.ipynb
+│   ├── figures/
+│   └── reports/
+├── week 5/                                                      # Week 5: Modular ML Pipeline Implementation
+│   ├── README.md
+│   ├── pipeline/
+│   ├── tests/
+│   └── week5_healthconnect_ml_pipeline.ipynb
+├── week 6/                                                      # Week 6: Cross-Track Pipeline Integration & Validation
+│   ├── README.md
+│   ├── pipeline/
+│   ├── tests/
+│   ├── figures/
+│   ├── reports/
+│   └── week6_healthconnect_ml_pipeline_integration.ipynb
+├── week 7/                                                      # Week 7: Pipeline Testing, Reliability & Refinement
+│   ├── README.md
+│   ├── pipeline/
+│   ├── tests/
+│   ├── figures/
+│   ├── reports/
+│   └── week7_healthconnect_ml_pipeline_testing.ipynb
+└── week 8/                                                      # Week 8: Final Integration, Showcase Package & Presentation
     ├── README.md
-    ├── AnalystLab_Africa_Week4_Experience_Lab_Assignment.pdf
-    ├── HealthConnect_Appointment_Data.csv
-    ├── HealthConnect_Clinic_Knowledge_Base.docx
-    ├── HealthConnect_Data_Dictionary.xlsx
-    ├── week4_healthconnect_ml_definition_system_design.ipynb   # Analysis Notebook
-    ├── figures/                                                 # Diagnostic Figures & System Architecture
-    └── reports/                                                 # LaTeX Source Files & Compiled PDFs
-        ├── week4_ml_problem_definition_and_system_design.tex
-        ├── week4_ml_problem_definition_and_system_design.pdf
-        ├── week4_project_summary.tex
-        └── week4_project_summary.pdf
+    ├── requirements.txt
+    ├── week8_healthconnect_final_integration.ipynb
+    ├── pipeline/                                                # Modular ML pipeline (GroupKFold & risk tier engine)
+    ├── demo/                                                    # Interactive live demonstration
+    ├── tests/                                                   # 21 automated pytest tests
+    ├── artifacts/                                               # Serialized model & preprocessor
+    ├── figures/                                                 # 6 diagnostic figures (300 DPI)
+    ├── reports/                                                 # 2 compiled PDF reports
+    └── presentation/                                            # Slide deck & timed video presentation script
 ```
 
 ---
@@ -78,38 +100,41 @@ This repository contains my weekly projects, notebooks, code, and reports for th
 - Designed a 5-stage production ML architecture (Ingestion -> Feature Store -> FastAPI Microservice -> Actionable Risk-Tier Decision Engine -> MLOps Monitoring).
 - **Notebook & Reports:** `week 4/week4_healthconnect_ml_definition_system_design.ipynb`, 5 figures, LaTeX source files, and compiled PDFs.
 
+### Week 5: Modular ML Pipeline Implementation
+- Architected a modular Python ML pipeline (`pipeline/`: data processing, feature engineering, model training, evaluation, validation).
+- Implemented baseline benchmarking, domain feature derivation, and initial test suite.
+- **Notebook & Tests:** `week 5/week5_healthconnect_ml_pipeline.ipynb` and pytest unit tests.
+
+### Week 6: Cross-Track Pipeline Integration & Validation
+- Integrated pipeline components across tracks with structured logging and schema validation.
+- Built end-to-end `HealthConnectPipeline` class with single-record and batch inference capabilities.
+- **Notebook & Reports:** `week 6/week6_healthconnect_ml_pipeline_integration.ipynb`, 4 figures, and PDF reports.
+
+### Week 7: Pipeline Testing, Reliability & Refinement
+- Executed 31 automated tests (12 unit + 5 integration + 14 reliability tests).
+- Added input validation for predictions, threshold validation, and artifact round-trip persistence.
+- **Notebook, Tests & Reports:** `week 7/week7_healthconnect_ml_pipeline_testing.ipynb`, 31 tests, and PDF reports.
+
+### Week 8: Final Integration, Presentation & Project Showcase (Culmination)
+- Achieved **zero patient leakage** via patient-level grouped train/test splitting (`GroupShuffleSplit` on `patient_id`).
+- Integrated Data Science handoff specifications (Random Forest, ROC-AUC = 0.6846 on unseen patients).
+- Calibrated cost-sensitive operating threshold to **0.35**, achieving **94.20% Recall** on missed appointments.
+- Built automated Risk-Tier Decision Engine (High, Moderate, Low Risk) mapped to clinical workflows (WhatsApp + buffer slot, SMS, email).
+- Audited demographic fairness across gender groups, documenting sensitivity equality and ROC-AUC parity.
+- 21 automated tests passing (100% pass rate in 17.8s), including HC-POD contract validation suite.
+- **Deliverables:** `week 8/` containing executed notebook, 6 publication-ready figures, 2 compiled PDF reports, interactive showcase demo, test suite, and presentation package with timed video script.
+
 ---
 
-## Week 3 Churn Model Results Summary
+## HealthConnect Week 8 Final Performance Summary
 
-Evaluated on 20% Stratified Test Set ($N=1,405$):
+Evaluated on Unseen Patient Test Set ($N=966$ appointments, 336 patients):
 
-| Model Algorithm | Accuracy | Precision | Recall | F1 Score | ROC-AUC | Notes |
+| Model Algorithm | Accuracy | Precision | Recall (No-Show) | F1 Score | ROC-AUC | Notes |
 | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
-| **Logistic Regression** | 80.43% | 66.44% | 52.69% | 0.5877 | 0.8400 | Linear baseline |
-| **Decision Tree** | 79.43% | 61.96% | 57.80% | 0.5981 | 0.8317 | Rule generation |
-| **Random Forest** | 79.64% | 65.25% | 49.46% | 0.5627 | 0.8359 | Standard bagging |
-| **Gradient Boosting** | 79.93% | 65.63% | 50.81% | 0.5727 | 0.8364 | Standard boosting |
-| **Support Vector Machine** | 79.72% | 69.16% | 42.20% | 0.5242 | 0.7836 | Margin optimization |
-| **K-Nearest Neighbors** | 76.37% | 56.29% | 48.12% | 0.5188 | 0.7993 | Instance similarity |
-| **Random Forest (Balanced)** | **77.01%** | **54.79%** | **75.27%** | **0.6342** | **0.8389** | **Recommended Model (High Recall)** |
-| **Logistic Regression (Balanced)** | **74.38%** | **51.06%** | **77.42%** | **0.6154** | **0.8393** | High-Recall linear option |
-
----
-
-## How to Run
-
-```bash
-# Clone repository
-git clone <repo-url>
-cd week_one
-
-# Install dependencies
-pip install pandas numpy matplotlib seaborn scikit-learn lightgbm jupyter
-
-# Open Week 4 Notebook
-jupyter notebook "week 4/week4_healthconnect_ml_definition_system_design.ipynb"
-```
+| **Logistic Regression (Baseline)** | 61.28% | 52.10% | 72.40% | 0.6058 | 0.6735 | Standard linear baseline |
+| **Random Forest (Final DS Spec)** | **64.70%** | **53.85%** | **94.20%** | **0.6852** | **0.6846** | **Final Production Model (Threshold = 0.35)** |
+| **Gradient Boosting** | 63.46% | 52.94% | 85.12% | 0.6528 | 0.6595 | Ensemble comparator |
 
 ---
 
@@ -118,13 +143,24 @@ jupyter notebook "week 4/week4_healthconnect_ml_definition_system_design.ipynb"
 - [x] Week 1 EDA Notebook (`week1_churn_analysis.ipynb`)
 - [x] Week 2 Preprocessing Notebook & CSV (`week2_data_preprocessing.ipynb`)
 - [x] Week 3 Evaluation Notebook & PDF Reports (`week3_business_report.pdf`, `week3_model_evaluation_report.pdf`)
-- [x] Week 4 HealthConnect Notebook (`week4_healthconnect_ml_definition_system_design.ipynb`)
-- [x] 5 Diagnostic & System Architecture Visuals (`week 4/figures/`)
-- [x] LaTeX PDF Reports (`reports/week4_ml_problem_definition_and_system_design.pdf`, `reports/week4_project_summary.pdf`)
-- [x] Documentation (`README.md` & `week 4/README.md`)
+- [x] Week 4 HealthConnect Problem Definition & System Design (`week 4/`)
+- [x] Week 5 HealthConnect ML Pipeline Implementation (`week 5/`)
+- [x] Week 6 HealthConnect Pipeline Integration & Validation (`week 6/`)
+- [x] Week 7 HealthConnect Pipeline Testing & Reliability Refinement (`week 7/`)
+- [x] Week 8 HealthConnect Final Integration, Showcase Package & Presentation (`week 8/`)
+  - [x] Final modular pipeline with patient-level grouping (`pipeline/`)
+  - [x] Executed showcase Jupyter notebook (`week8_healthconnect_final_integration.ipynb`)
+  - [x] 21 automated pytest tests (Unit, Integration, Reliability, Contract) (`tests/`)
+  - [x] 6 Diagnostic figures at 300 DPI (`figures/`)
+  - [x] 2 Compiled PDF reports (`reports/week8_final_ml_pipeline_integration_report.pdf`, `reports/week8_project_summary.pdf`)
+  - [x] Interactive live showcase demo script (`demo/demo_inference.py`)
+  - [x] Serialized model artifacts (`artifacts/`)
+  - [x] Full presentation materials & timed video script (`presentation/`)
+  - [x] Comprehensive documentation (`README.md` & `week 8/README.md`)
 
 ---
 
 ## License
 
 This repository is licensed under the MIT License.
+

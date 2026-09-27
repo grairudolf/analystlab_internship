@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HealthConnect Week 8 Showcase — Grai Rudolf</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #0f172a;
+    color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .slide-container {
+    width: 1000px;
+    height: 620px;
+    background: #ffffff;
+    color: #1e293b;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide-header {
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .slide-header h2 {
+    color: #1e3a8a;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .slide-header .tag {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .slide-footer {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #64748b;
+  }
+  .controls {
+    margin-top: 18px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+  button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  button:hover { background: #1d4ed8; }
+  .badge-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 15px;
+  }
+  .badge-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    border-left: 4px solid #2563eb;
+  }
+  .badge-card h4 { color: #1e3a8a; margin-bottom: 6px; font-size: 15px; }
+  .badge-card p { font-size: 13.5px; color: #475569; }
+  .metric-row {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+  }
+  .metric-box {
+    text-align: center;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 18px 25px;
+    min-width: 170px;
+  }
+  .metric-val { font-size: 30px; font-weight: 800; color: #1e40af; }
+  .metric-label { font-size: 13px; color: #475569; font-weight: 600; margin-top: 4px; }
+  ul { margin-left: 20px; }
+  li { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="slide-container" id="slideBox">
+  <!-- Slide 1 -->
+  <div class="slide" id="s1">
+    <div class="slide-header">
+      <h2>HealthConnect Clinic Experience Lab</h2>
+      <span class="tag">Week 8 Final Showcase</span>
+    </div>
+    <div class="slide-content" style="text-align: center;">
+      <h1 style="color: #1e3a8a; font-size: 32px; margin-bottom: 15px;">End-to-End Production ML Pipeline for Patient Attendance Optimization</h1>
+      <h3 style="color: #0284c7; font-weight: 500; margin-bottom: 30px;">Reducing Clinic Missed Appointments from 48.5% Through Data, Leakage Prevention & Cost-Sensitive AI</h3>
+      <div style="background: #f1f5f9; padding: 20px; border-radius: 8px; display: inline-block; text-align: left; width: 80%; border-left: 5px solid #2563eb;">
+        <p><strong>Presenter:</strong> Grai Rudolf</p>
+        <p><strong>Role & Track:</strong> Junior Machine Learning Engineer Intern | ML Engineering Track</p>
+        <p><strong>Program:</strong> AnalystLab Africa Experience Lab</p>
+        <p><strong>HC-POD Team:</strong> Machine Learning Engineering + Data Science + Data Analytics + GenAI + PM</p>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Grai Rudolf | ML Engineering</span>
+      <span>Slide 1 of 10</span>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button onclick="prevSlide()">◀ Previous</button>
+  <span id="slideIndicator" style="color: #94a3b8; font-weight: 600;">Slide 1 / 10</span>
+  <button onclick="nextSlide()">Next ▶</button>
+</div>
+
+<script>
+const slides = [
+  {
+    title: "HealthConnect Clinic Experience Lab",
+    tag: "Week 8 Final Showcase",
+    html: `
+      <div style="text-align: center;">
+        <h1 style="color: #1e3a8a; font-size: 30px; margin-bottom: 12px;">End-to-End Production ML Pipeline for Patient Attendance Optimization</h1>
+        <h3 style="color: #0284c7; font-weight: 500; margin-bottom: 25px;">Reducing Clinic Missed Appointments (48.5%) Through Zero-Leakage AI & Clinical Action Routing</h3>
+        <div style="background: #f1f5f9; padding: 20px; border-radius: 8px; display: inline-block; text-align: left; width: 85%; border-left: 5px solid #2563eb;">
+          <p><strong>Presenter:</strong> Grai Rudolf</p>
+          <p><strong>Role & Track:</strong> Junior Machine Learning Engineer Intern | Machine Learning Track</p>
+          <p><strong>Program:</strong> AnalystLab Africa Experience Lab (Final Integration Week)</p>
+          <p><strong>Core Problem:</strong> High appointment no-show rate (48.5%) wastes medical staff hours, delays patient care, and drains clinic revenue.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    title: "ML Engineering Scope & Key Responsibilities",
+    tag: "Track Responsibilities",
+    html: `
+      <p style="margin-bottom: 15px; font-size: 16px;">Transitioned experimental analytics into an automated, leakage-free, and tested production-ready ML system:</p>
+      <div class="badge-grid">
+        <div class="badge-card">
+          <h4>1. Modular Architecture</h4>
+          <p>Structured <code>pipeline/</code> package handling data cleaning, feature engineering, model training, evaluation, and JSON serialization.</p>
+        </div>
+        <div class="badge-card">
+          <h4>2. Post-Arrival Leakage Shield</h4>
+          <p>Actively identified and stripped <code>waiting_time_minutes</code>. Built inference validators that reject post-arrival features with custom <code>ValidationError</code>.</p>
+        </div>
+        <div class="badge-card">
+          <h4>3. Patient-Level Grouped Split</h4>
+          <p>Enforced <code>GroupShuffleSplit</code> & <code>GroupKFold</code> on <code>patient_id</code> (1,680 patients) ensuring 100% unseen patient evaluation.</p>
+        </div>
+        <div class="badge-card">
+          <h4>4. Comprehensive Quality Assurance</h4>
+          <p>Developed 21 automated pytest tests (Unit, Integration, Reliability, Contract) achieving a 100% pass rate in 17.8s.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    title: "End-to-End ML Pipeline Architecture",
+    tag: "System Architecture",
+    html: `
+      <p style="margin-bottom: 15px;">A 5-stage sequential workflow engineered for high throughput and zero data contamination:</p>
+      <ul>
+        <li><strong>Stage 1: Raw Ingestion & Schema Check:</strong> Validates raw appointments against 18 documented clinic schema fields.</li>
+        <li><strong>Stage 2: Cleaning & Leakage Stripping:</strong> Imputes <code>reminder_channel</code> (NMAR) as 'None_Sent', imputes distance median (MCAR), and strips post-arrival features.</li>
+        <li><strong>Stage 3: Feature Engineering:</strong> Constructs Laplace-smoothed historical no-show ratios, lead-time bins, and new-patient indicators.</li>
+        <li><strong>Stage 4: Robust Preprocessing:</strong> <code>ColumnTransformer</code> with <code>handle_unknown='ignore'</code> on categorical one-hot encoders to prevent runtime crashes.</li>
+        <li><strong>Stage 5: Risk Stratification Engine:</strong> Computes probability $\\to$ applies cost-sensitive threshold $\\to$ outputs operational action tier.</li>
+      </ul>
+    `
+  },
+  {
+    title: "Model Performance on Unseen Patients",
+    tag: "Evaluation & Benchmarking",
+    html: `
+      <p>Evaluated on strictly unseen patient test set ($N=966$ appointments, 336 patients):</p>
+      <div class="metric-row">
+        <div class="metric-box">
+          <div class="metric-val">0.6846</div>
+          <div class="metric-label">Test ROC-AUC</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-val">94.20%</div>
+          <div class="metric-label">No-Show Recall</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-val">0.35</div>
+          <div class="metric-label">Operating Threshold</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-val">0.6852</div>
+          <div class="metric-label">F1-Score</div>
+        </div>
+      </div>
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px; margin-top: 15px;">
+        <p><strong>Clinical Rationale for Threshold = 0.35:</strong> In a healthcare clinic, missing a no-show (False Negative) leaves a physician idle for 30 minutes. Sending an extra WhatsApp confirmation (False Positive) costs almost nothing. Lowering threshold from 0.50 to 0.35 raises Recall from 72% to <strong>94.2%</strong>!</p>
+      </div>
+    `
+  },
+  {
+    title: "HC-POD Cross-Track Handoff (Data Science)",
+    tag: "Cross-Track Collaboration",
+    html: `
+      <div class="badge-card" style="border-left-color: #9333ea; margin-bottom: 15px;">
+        <h4 style="color: #7e22ce;">Data Science Collaborator: Mairame Samba Niang</h4>
+        <p>Exchanged model specifications, technical constraints, and data leakage flags through iterative collaboration.</p>
+      </div>
+      <ul>
+        <li><strong>MLE Output Provided:</strong> Supplied 12-feature input contract, JSON output schema, pickle requirement, and flagged <code>waiting_time_minutes</code> as post-arrival leakage.</li>
+        <li><strong>DS Output Received:</strong> Mairame retrained Random Forest without leakage (ROC-AUC 0.682), shared optimal threshold (0.30–0.35), flagged gender fairness gap, and transparently noted bootstrap CI includes zero.</li>
+        <li><strong>Pipeline Adaptation:</strong> MLE implemented <code>import_ds_model()</code> adapter, set threshold to 0.35, added GroupKFold, and wrote 4 contract tests in <code>test_ds_contract.py</code>.</li>
+      </ul>
+    `
+  },
+  {
+    title: "Actionable Risk Tiers & Clinical Interventions",
+    tag: "Clinical Decision Engine",
+    html: `
+      <p style="margin-bottom: 15px;">Mapping model probabilities to immediate administrative workflows:</p>
+      <div class="badge-grid">
+        <div class="badge-card" style="border-left-color: #ef4444;">
+          <h4 style="color: #b91c1c;">HIGH RISK (P ≥ 0.70)</h4>
+          <p><strong>Action:</strong> <code>TRIGGER_WHATSAPP_CONFIRMATION_AND_BUFFERSLOT</code></p>
+          <p>Dispatches interactive WhatsApp confirmation bot and flags clinic scheduling system to prepare a contingency buffer slot.</p>
+        </div>
+        <div class="badge-card" style="border-left-color: #f59e0b;">
+          <h4 style="color: #b45309;">MODERATE RISK (0.35 ≤ P < 0.70)</h4>
+          <p><strong>Action:</strong> <code>TRIGGER_SMS_REMINDER_REQUESTING_CONFIRMATION</code></p>
+          <p>Dispatches 48-hour automated SMS reminder asking patient to reply '1' to confirm or '2' to reschedule.</p>
+        </div>
+      </div>
+      <div class="badge-card" style="border-left-color: #10b981; margin-top: 15px;">
+        <h4 style="color: #047857;">LOW RISK (P < 0.35)</h4>
+        <p><strong>Action:</strong> <code>STANDARD_EMAIL_NOTIFICATION</code></p>
+        <p>Standard automated email and calendar invitation, saving administrative telephony overhead.</p>
+      </div>
+    `
+  },
+  {
+    title: "Quality Assurance & Reliability Verification",
+    tag: "Testing Suite Summary",
+    html: `
+      <p style="margin-bottom: 12px;"><strong>21 Automated Tests Across 4 Quality Dimensions — 100% Passing (17.8s):</strong></p>
+      <ul>
+        <li><strong>Unit Tests (8):</strong> Verified data cleaning, median imputation, leakage column dropping, and patient grouping.</li>
+        <li><strong>Integration Tests (4):</strong> Validated end-to-end training, single prediction contract, and batch DataFrame predictions.</li>
+        <li><strong>Reliability Tests (5):</strong> Boundary threshold validation, missing column error detection, leakage blocking, and artifact serialization round-trip.</li>
+        <li><strong>HC-POD Contract Tests (4):</strong> Schema compliance, 12-feature input parsing, output JSON format, and Data Science model import adapter.</li>
+      </ul>
+      <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px; padding: 12px; margin-top: 15px;">
+        <p style="color: #166534; font-weight: 600;">✔ Zero regression failures. Reproducibility verified across independent runs.</p>
+      </div>
+    `
+  },
+  {
+    title: "Ethical AI & Known Limitations",
+    tag: "Transparency & Governance",
+    html: `
+      <p style="margin-bottom: 10px;">Documenting limitations and fairness audit findings in accordance with healthcare AI ethics:</p>
+      <ul>
+        <li><strong>Gender Subgroup Fairness Gap:</strong>
+          <br>• Female Patients: ROC-AUC = 0.6966 | Recall = 95.24%
+          <br>• Male Patients: ROC-AUC = 0.6719 | Recall = 93.39%
+          <br><em>Policy Implication:</em> Sensitivity is high (>93%) for both groups, but clinic policy must ensure male patients are not penalized with excessive double-booking.
+        </li>
+        <li><strong>Statistical Significance vs Baseline:</strong>
+          <br>After removing data leakage, Random Forest improvement over Logistic Regression (+1.1% AUC) has a 95% bootstrap CI including zero. We select RF for capturing non-linear interactions and lead-time bins.
+        </li>
+        <li><strong>Static Lead-Time Distribution:</strong>
+          <br>Assumes historical patient lead-time distribution remains constant; policy changes require retraining.
+        </li>
+      </ul>
+    `
+  },
+  {
+    title: "Multidisciplinary HC-POD Integration & Value",
+    tag: "Overall Solution",
+    html: `
+      <p style="margin-bottom: 12px;">How all five tracks connect into one HealthConnect solution:</p>
+      <div class="badge-grid">
+        <div class="badge-card">
+          <h4>Data Analytics ➔ Data Science</h4>
+          <p>Analytical attendance trends shaped model hypothesis and feature choices.</p>
+        </div>
+        <div class="badge-card">
+          <h4>Data Science ➔ ML Engineering</h4>
+          <p>Tuned Random Forest specs and 0.35 threshold integrated into modular pipeline.</p>
+        </div>
+        <div class="badge-card">
+          <h4>ML Engineering ➔ GenAI</h4>
+          <p>Pipeline JSON API serves risk tiers (<10ms) to trigger automated WhatsApp/SMS bots.</p>
+        </div>
+        <div class="badge-card">
+          <h4>All Tracks ➔ PM & Operations</h4>
+          <p>Reclaiming 35–40% of lost appointment capacity to boost clinical revenue.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    title: "Closing & Key Takeaways",
+    tag: "Conclusion",
+    html: `
+      <div style="padding: 15px; background: #eff6ff; border-radius: 8px; border-left: 5px solid #2563eb; margin-bottom: 20px;">
+        <h3 style="color: #1e40af; margin-bottom: 8px;">Key Takeaway:</h3>
+        <p style="font-size: 16px; color: #1e293b;">Machine Learning Engineering in healthcare is fundamentally about <strong>integrity, rigorous contracts, and operational utility</strong>. Eliminating data leakage and testing cross-track interfaces transformed theoretical modeling into a dependable clinical asset.</p>
+      </div>
+      <p><strong>Personal Learnings:</strong> Mastered patient-level cross-validation, cost-sensitive threshold calibration, and contract-driven teamwork in HC-PODs.</p>
+      <p style="margin-top: 10px;"><strong>Future Improvements:</strong> Containerize with Docker, deploy live data drift monitoring via Evidently AI, and implement Fairlearn demographic re-weighting.</p>
+      <h3 style="text-align: center; color: #1e3a8a; margin-top: 35px;">Thank you! Questions & Discussion.</h3>
+    `
+  }
+];
+
+let curIdx = 0;
+
+function renderSlide(idx) {
+  const s = slides[idx];
+  const box = document.getElementById("slideBox");
+  box.innerHTML = `
+    <div class="slide-header">
+      <h2>${s.title}</h2>
+      <span class="tag">${s.tag}</span>
+    </div>
+    <div class="slide-content">
+      ${s.html}
+    </div>
+    <div class="slide-footer">
+      <span>Grai Rudolf | Machine Learning Engineering Track</span>
+      <span>Slide ${idx + 1} of ${slides.length}</span>
+    </div>
+  `;
+  document.getElementById("slideIndicator").textContent = `Slide ${idx + 1} / ${slides.length}`;
+}
+
+function nextSlide() {
+  if (curIdx < slides.length - 1) {
+    curIdx++;
+    renderSlide(curIdx);
+  }
+}
+
+function prevSlide() {
+  if (curIdx > 0) {
+    curIdx--;
+    renderSlide(curIdx);
+  }
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") nextSlide();
+  if (e.key === "ArrowLeft" || e.key === "PageUp") prevSlide();
+});
+
+renderSlide(0);
+</script>
+</body>
+</html>
